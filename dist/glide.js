@@ -1775,7 +1775,11 @@ var Translate = function(Glide, Core) {
      */
     Module.prototype.set = function(axis, value) {
         axes[axis] = parseInt(value);
-        return 'translate3d(' + (-1 * axes.x) + 'px, ' + (-1 * axes.y) + 'px, ' + (-1 * axes.z) + 'px)';
+        if (Modernizr && !Modernizr.csstransforms3d) {
+          return 'translate(' + (-1 * axes.x) + 'px, ' + (-1 * axes.y) + 'px)';
+        } else {
+          return 'translate3d(' + (-1 * axes.x) + 'px, ' + (-1 * axes.y) + 'px, ' + (-1 * axes.z) + 'px)';
+        }
     };
 
 
